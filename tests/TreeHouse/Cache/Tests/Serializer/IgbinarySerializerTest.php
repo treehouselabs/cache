@@ -16,6 +16,10 @@ class IgbinarySerializerTest extends SerializerTest
      */
     public function testSerialize($value, $serialized, $expected = null)
     {
+        if (!extension_loaded('igbinary')) {
+            $this->markTestSkipped('The igbinary extension must be loaded');
+        }
+
         $serialized = igbinary_serialize($value);
 
         parent::testSerialize($value, $serialized, $expected);
