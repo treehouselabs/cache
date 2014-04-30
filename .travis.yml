@@ -4,8 +4,21 @@ php:
   - 5.5
   - 5.6
 
-before_script: composer update
-script: phpunit --coverage-clover=coverage.clover
+services:
+  - redis-server
+  - memcached
+
+install:
+  - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - composer self-update
+
+before_script:
+  - composer install --no-interaction
+
+script:
+  - phpunit --coverage-clover=coverage.clover
+  
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --access-token="edf9593753c666cc9c4f6f43a8e4f5643d7f084d682b0bd0a64b447b052a5083" --format=php-clover coverage.clover
