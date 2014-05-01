@@ -2,8 +2,8 @@
 
 namespace TreeHouse\Cache\Adapter;
 
-use TreeHouse\Cache\CacheInterface;
 use Guzzle\Cache\CacheAdapterInterface;
+use TreeHouse\Cache\CacheInterface;
 
 class GuzzleAdapter implements CacheAdapterInterface
 {
