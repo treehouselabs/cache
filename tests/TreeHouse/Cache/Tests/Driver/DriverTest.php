@@ -76,10 +76,7 @@ abstract class DriverTest extends \PHPUnit_Framework_TestCase
 
     public function testFetchMissShouldReturnFalse()
     {
-        $result = $this->driver->get('nonexistent_key');
-
-        $this->assertFalse($result);
-        $this->assertNotNull($result);
+        $this->assertSame(false, $this->driver->get('nonexistent_key'));
     }
 
     /**
