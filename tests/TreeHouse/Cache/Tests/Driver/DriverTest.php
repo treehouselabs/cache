@@ -41,6 +41,30 @@ abstract class DriverTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->driver->has('key'));
     }
 
+    public function testListOperations()
+    {
+        $list = 'testlist';
+
+        // add items to list
+        $this->driver->addToList($list, 'foo');
+        $this->driver->addToList($list, 'bar');
+
+        $items = $this->driver->getList($list);
+
+        // items should be in list
+        $this->assertContains('foo', $items);
+        $this->assertContains('bar', $items);
+
+        // remove item from list
+        $this->driver->removeFromList($list, 'foo');
+
+        $items = $this->driver->getList($list);
+
+        // foo should be removed, but bar not
+        $this->assertNotContains('foo', $items);
+        $this->assertContains('bar', $items);
+    }
+
     public function testClear()
     {
         $this->assertTrue($this->driver->set('key1', 1));
