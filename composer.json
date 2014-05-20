@@ -11,13 +11,12 @@
         }
     ],
     "require": {
-        "php": ">=5.4"
+        "php": ">=5.5"
     },
     "require-dev": {
       "ext-memcached": "*",
       "phpunit/phpunit": "~4.0",
       "guzzle/guzzle": "~3.7",
-      "guzzlehttp/guzzle": "~4.0",
       "predis/predis": "~0.8"
     },
     "autoload": {
