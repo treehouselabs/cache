@@ -1,6 +1,6 @@
 <?php
 
-namespace TreeHouse\Cache\Tests;
+namespace TreeHouse\Cache\Tests\Driver;
 
 use TreeHouse\Cache\Driver\RedisDriver;
 
@@ -11,12 +11,11 @@ class RedisDriverTest extends DriverTest
      */
     private $redis;
 
+    /**
+     * @requires extension redis
+     */
     protected function setUp()
     {
-        if (!extension_loaded('redis')) {
-            $this->markTestSkipped('The ' . __CLASS__ . ' requires the redis extension');
-        }
-
         $this->redis = new \Redis();
 
         if (false === @$this->redis->connect('127.0.0.1')) {
