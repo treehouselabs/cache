@@ -1,6 +1,6 @@
 <?php
 
-namespace TreeHouse\Cache\Tests;
+namespace TreeHouse\Cache\Tests\Driver;
 
 use Predis\Client;
 use TreeHouse\Cache\Driver\PredisDriver;

@@ -1,6 +1,6 @@
 <?php
 
-namespace TreeHouse\Cache\Tests;
+namespace TreeHouse\Cache\Tests\Driver;
 
 use TreeHouse\Cache\CacheInterface;
 use TreeHouse\Cache\Driver\DriverInterface;

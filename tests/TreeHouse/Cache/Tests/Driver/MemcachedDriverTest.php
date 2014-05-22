@@ -1,6 +1,6 @@
 <?php
 
-namespace TreeHouse\Cache\Tests;
+namespace TreeHouse\Cache\Tests\Driver;
 
 use TreeHouse\Cache\Driver\MemcachedDriver;
 
@@ -11,12 +11,11 @@ class MemcachedDriverTest extends DriverTest
      */
     private $memcached;
 
+    /**
+     * @requires extension memcached
+     */
     protected function setUp()
     {
-        if (!extension_loaded('memcached')) {
-            $this->markTestSkipped('The ' . __CLASS__ . ' requires the memcached extension');
-        }
-
         $this->memcached = new \Memcached();
         $this->memcached->addServer('127.0.0.1', 11211);
 
