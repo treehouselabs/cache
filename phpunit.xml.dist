@@ -13,7 +13,7 @@
   bootstrap                   = "tests/bootstrap.php">
 
   <testsuites>
-    <testsuite name="Getgeo client test suite">
+    <testsuite>
       <directory suffix="Test.php">./tests</directory>
     </testsuite>
   </testsuites>
@@ -26,7 +26,7 @@
     <whitelist>
       <directory suffix=".php">./src</directory>
       <exclude>
-        <directory>./src/TreeHouse/Cache/Tests</directory>
+        <directory>./tests/TreeHouse/Cache/Tests</directory>
       </exclude>
     </whitelist>
   </filter>
