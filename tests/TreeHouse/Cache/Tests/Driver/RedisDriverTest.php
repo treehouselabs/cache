@@ -16,6 +16,10 @@ class RedisDriverTest extends DriverTest
      */
     protected function setUp()
     {
+        if (!extension_loaded('redis')) {
+            $this->markTestSkipped('redis extension not installed');
+        }
+
         $this->redis = new \Redis();
 
         if (false === @$this->redis->connect('127.0.0.1')) {

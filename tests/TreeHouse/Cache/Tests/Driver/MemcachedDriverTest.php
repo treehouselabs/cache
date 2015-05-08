@@ -16,11 +16,15 @@ class MemcachedDriverTest extends DriverTest
      */
     protected function setUp()
     {
+        if (!extension_loaded('memcached')) {
+            $this->markTestSkipped('memcached extension not installed');
+        }
+
         $this->memcached = new \Memcached();
         $this->memcached->addServer('127.0.0.1', 11211);
 
         if (@fsockopen('127.0.0.1', 11211) === false) {
-            unset($this->memcache);
+            unset($this->memcached);
             $this->markTestSkipped('Could not connect to Memcached instance');
         }
 
