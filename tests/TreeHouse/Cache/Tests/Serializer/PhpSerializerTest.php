@@ -21,7 +21,7 @@ class PhpSerializerTest extends SerializerTest
             [['foo'], 'a:1:{i:0;s:3:"foo";}'],
             [false, 'b:0;'],
             [null, 'N;'],
-            [new \ArrayObject(), 'C:11:"ArrayObject":21:{x:i:0;a:0:{};m:a:0:{}}'],
+            [new \stdClass(), 'O:8:"stdClass":0:{}'],
             [1234, 'i:1234;'],
             [1234.5678, 'd:1234.5678;'],
         ];
