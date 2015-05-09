@@ -4,6 +4,7 @@ Cache
 Library for quick and easy caching. Supports multiple drivers.
 
 [![Build Status](https://travis-ci.org/treehouselabs/cache.svg?branch=master)](https://travis-ci.org/treehouselabs/cache)
+[![Code Coverage](https://scrutinizer-ci.com/g/treehouselabs/cache/badges/coverage.png)](https://scrutinizer-ci.com/g/treehouselabs/cache/)
 
 ## Installation
 

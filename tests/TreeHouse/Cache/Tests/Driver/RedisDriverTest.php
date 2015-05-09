@@ -30,6 +30,40 @@ class RedisDriverTest extends DriverTest
         parent::setUp();
     }
 
+    public function testSetWithTtl()
+    {
+        $ttl = 60;
+
+        /** @var \PHPUnit_Framework_MockObject_MockObject|\Redis $redis */
+        $redis = $this->getMock(\Redis::class);
+        $redis
+            ->expects($this->once())
+            ->method('setex')
+            ->with('foo', $ttl, 'bar')
+        ;
+
+        $driver = new RedisDriver($redis);
+        $driver->set('foo', 'bar', $ttl);
+
+    }
+
+    public function testSetWithoutTtl()
+    {
+        /** @var \PHPUnit_Framework_MockObject_MockObject|\Redis $redis */
+        $redis = $this->getMock(\Redis::class);
+        $redis
+            ->expects($this->once())
+            ->method('set')
+        ;
+        $redis
+            ->expects($this->never())
+            ->method('setex')
+        ;
+
+        $driver = new RedisDriver($redis);
+        $driver->set('foo', 'bar');
+    }
+
     protected function getCacheDriver()
     {
         return new RedisDriver($this->redis);

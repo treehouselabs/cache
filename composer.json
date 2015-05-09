@@ -14,8 +14,6 @@
     "php": ">=5.5"
   },
   "require-dev": {
-    "ext-memcached": "*",
-    "ext-redis": "*",
     "phpunit/phpunit": "~4.0",
     "doctrine/cache": "~1.0",
     "guzzle/guzzle": "~3.7",

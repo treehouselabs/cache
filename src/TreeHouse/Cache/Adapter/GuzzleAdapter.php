@@ -7,6 +7,7 @@ use TreeHouse\Cache\CacheInterface;
 
 /**
  * @deprecated Guzzle has reached version 5 for some time now. Time to move on.
+ * @codeCoverageIgnore
  */
 class GuzzleAdapter implements CacheAdapterInterface
 {
