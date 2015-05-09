@@ -35,7 +35,7 @@ class RedisDriverTest extends DriverTest
         $ttl = 60;
 
         /** @var \PHPUnit_Framework_MockObject_MockObject|\Redis $redis */
-        $redis = $this->getMock(\Redis::class);
+        $redis = $this->getMock(\Redis::class, ['setex']);
         $redis
             ->expects($this->once())
             ->method('setex')
@@ -50,7 +50,7 @@ class RedisDriverTest extends DriverTest
     public function testSetWithoutTtl()
     {
         /** @var \PHPUnit_Framework_MockObject_MockObject|\Redis $redis */
-        $redis = $this->getMock(\Redis::class);
+        $redis = $this->getMock(\Redis::class, ['set', 'setex']);
         $redis
             ->expects($this->once())
             ->method('set')

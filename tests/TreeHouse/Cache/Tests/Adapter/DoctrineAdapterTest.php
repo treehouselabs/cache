@@ -16,12 +16,14 @@ class DoctrineAdapterTest extends CacheTest
     private $redis;
 
     /**
-     * @inheritdoc
-     *
      * @requires extension redis
      */
-    protected function _getCacheDriver()
+    protected function setUp()
     {
+        if (!extension_loaded('redis')) {
+            $this->markTestSkipped('redis extension not installed');
+        }
+
         $this->redis = new \Redis();
 
         if (false === @$this->redis->connect('127.0.0.1')) {
@@ -29,6 +31,16 @@ class DoctrineAdapterTest extends CacheTest
             $this->markTestSkipped('Could not connect to Redis instance');
         }
 
+        parent::setUp();
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @requires extension redis
+     */
+    protected function _getCacheDriver()
+    {
         $driver = new RedisDriver($this->redis);
         $cache  = new Cache($driver, new PhpSerializer());
 
