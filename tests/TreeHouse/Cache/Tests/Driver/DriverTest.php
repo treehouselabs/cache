@@ -26,18 +26,20 @@ abstract class DriverTest extends \PHPUnit_Framework_TestCase
 
     public function testBasicCrudOperations()
     {
+        $this->assertFalse($this->driver->has('key'));
+
         // Test saving a value, checking if it exists, and fetching it back
-        $this->assertTrue($this->driver->set('key', 'foo'));
+        $this->assertTrue($this->driver->set('key', 'foo'), '->set() should return true on success');
         $this->assertTrue($this->driver->has('key'));
         $this->assertEquals('foo', $this->driver->get('key'));
 
         // Test updating the value of a cache entry
-        $this->assertTrue($this->driver->set('key', 'value-changed'));
+        $this->assertTrue($this->driver->set('key', 'value-changed'), '->set() should return true on success');
         $this->assertTrue($this->driver->has('key'));
         $this->assertEquals('value-changed', $this->driver->get('key'));
 
         // Test removing a value
-        $this->assertTrue($this->driver->remove('key'));
+        $this->assertTrue($this->driver->remove('key'), '->remove() should return true on success');
         $this->assertFalse($this->driver->has('key'));
     }
 
@@ -46,8 +48,8 @@ abstract class DriverTest extends \PHPUnit_Framework_TestCase
         $list = 'testlist';
 
         // add items to list
-        $this->driver->addToList($list, 'foo');
-        $this->driver->addToList($list, 'bar');
+        $this->assertTrue($this->driver->addToList($list, 'foo'), '->addToList() should return true on success');
+        $this->assertTrue($this->driver->addToList($list, 'bar'), '->addToList() should return true on success');
 
         $items = $this->driver->getList($list);
 
@@ -56,7 +58,7 @@ abstract class DriverTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('bar', $items);
 
         // remove item from list
-        $this->driver->removeFromList($list, 'foo');
+        $this->assertTrue($this->driver->removeFromList($list, 'foo'), '->removeFromList() should return true on success');
 
         $items = $this->driver->getList($list);
 
@@ -69,7 +71,7 @@ abstract class DriverTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertTrue($this->driver->set('key1', 1));
         $this->assertTrue($this->driver->set('key2', 2));
-        $this->assertTrue($this->driver->clear());
+        $this->assertTrue($this->driver->clear(), '->clear() should return true on success');
         $this->assertFalse($this->driver->has('key1'));
         $this->assertFalse($this->driver->has('key2'));
     }

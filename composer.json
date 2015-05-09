@@ -1,27 +1,34 @@
 {
-    "name": "treehouselabs/cache",
-    "type": "library",
-    "description": "Library for quick and easy caching. Supports multiple drivers.",
-    "keywords": ["cache"],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Peter Kruithof",
-            "email": "peter@treehouse.nl"
-        }
-    ],
-    "require": {
-        "php": ">=5.5"
-    },
-    "require-dev": {
-      "ext-memcached": "*",
-      "ext-redis": "*",
-      "phpunit/phpunit": "~4.0",
-      "doctrine/cache": "~1.0",
-      "guzzle/guzzle": "~3.7",
-      "predis/predis": "~0.8"
-    },
-    "autoload": {
-        "psr-4": { "TreeHouse\\Cache\\": "src/TreeHouse/Cache/" }
+  "name": "treehouselabs/cache",
+  "type": "library",
+  "description": "Library for quick and easy caching. Supports multiple drivers.",
+  "keywords": ["cache"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Peter Kruithof",
+      "email": "peter@treehouse.nl"
     }
+  ],
+  "require": {
+    "php": ">=5.5"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0",
+    "doctrine/cache": "~1.0",
+    "guzzle/guzzle": "~3.7",
+    "predis/predis": "~0.8",
+    "scrutinizer/ocular": "~1.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "TreeHouse\\Cache\\": "src/TreeHouse/Cache/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "TreeHouse\\Cache\\Tests\\": "tests/TreeHouse/Cache/Tests/",
+      "Doctrine\\Tests\\": "vendor/doctrine/cache/tests/Doctrine/Tests/"
+    }
+  }
 }
