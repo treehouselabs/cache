@@ -74,7 +74,7 @@ class ArrayDriver implements DriverInterface
         if (!array_key_exists($listName, $this->storage)) {
             return [];
         }
-        
+
         return $this->storage[$listName];
     }
 
