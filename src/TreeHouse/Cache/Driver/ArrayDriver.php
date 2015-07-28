@@ -71,6 +71,10 @@ class ArrayDriver implements DriverInterface
      */
     public function getList($listName)
     {
+        if (!array_key_exists($listName, $this->storage)) {
+            return [];
+        }
+        
         return $this->storage[$listName];
     }
 
