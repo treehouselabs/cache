@@ -93,10 +93,10 @@ class CacheTest extends \PHPUnit_Framework_TestCase
         $this->driver
             ->expects($this->once())
             ->method('set')
-            ->with('foo', 'bar')
+            ->with('foo', 'bar', 123)
         ;
 
-        $this->cache->set('foo', 'bar');
+        $this->cache->set('foo', 'bar', 123);
     }
 
     public function testRemove()

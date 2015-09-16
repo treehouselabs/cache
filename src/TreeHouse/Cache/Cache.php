@@ -50,7 +50,7 @@ class Cache implements CacheInterface
     {
         $value = $this->serializer->serialize($value);
 
-        return $this->driver->set($key, $value);
+        return $this->driver->set($key, $value, $ttl);
     }
 
     /**
