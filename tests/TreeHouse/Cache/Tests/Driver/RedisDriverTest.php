@@ -27,6 +27,8 @@ class RedisDriverTest extends DriverTest
             $this->markTestSkipped('Could not connect to Redis instance');
         }
 
+        $this->redis->flushAll();
+
         parent::setUp();
     }
 

@@ -15,6 +15,8 @@ class ApcDriverTest extends DriverTest
             $this->markTestSkipped('apcu extension not installed');
         }
 
+        apc_clear_cache('user');
+
         parent::setUp();
     }
 

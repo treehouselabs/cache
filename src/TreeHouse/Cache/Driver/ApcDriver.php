@@ -47,7 +47,7 @@ class ApcDriver implements DriverInterface
      */
     public function clear()
     {
-        return apc_clear_cache();
+        return apc_clear_cache('user');
     }
 
     /**
@@ -55,7 +55,7 @@ class ApcDriver implements DriverInterface
      */
     public function getList($list)
     {
-        return apc_fetch($list);
+        return apc_fetch($list) ?: [];
     }
 
     /**
