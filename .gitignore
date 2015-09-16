@@ -1,2 +1,5 @@
-composer.lock
-vendor/
+/.php_cs.cache
+/composer.lock
+/build/
+/docs/
+/vendor/
