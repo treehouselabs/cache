@@ -21,6 +21,8 @@ class PredisDriverTest extends DriverTest
             $this->markTestSkipped('Could not ping Redis instance');
         }
 
+        $this->predis->flushAll();
+
         parent::setUp();
     }
 

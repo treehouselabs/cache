@@ -74,7 +74,7 @@ class MemcachedDriver implements DriverInterface
      */
     public function addToList($listName, $value)
     {
-        $list = $this->memcached->get($listName) ?: array();
+        $list = $this->getList($listName);
 
         if (!in_array($value, $list)) {
             $list[] = $value;
@@ -88,7 +88,7 @@ class MemcachedDriver implements DriverInterface
      */
     public function removeFromList($listName, $value)
     {
-        $list = $this->memcached->get($listName) ?: array();
+        $list = $this->getList($listName);
 
         foreach ($list as $key => $listValue) {
             if ($listValue == $value) {
@@ -104,6 +104,6 @@ class MemcachedDriver implements DriverInterface
      */
     public function getList($listName)
     {
-        return $this->memcached->get($listName);
+        return $this->memcached->get($listName) ?: [];
     }
 }

@@ -48,7 +48,7 @@ abstract class DriverTest extends \PHPUnit_Framework_TestCase
         $list = 'testlist';
 
         // empty list
-        $this->assertEmpty($this->driver->getList($list), '->getList() should return an empty array when the list does not exist yet');
+        $this->assertEquals([], $this->driver->getList($list), '->getList() should return an empty array when the list does not exist yet');
 
         // add items to list
         $this->assertTrue($this->driver->addToList($list, 'foo'), '->addToList() should return true on success');
