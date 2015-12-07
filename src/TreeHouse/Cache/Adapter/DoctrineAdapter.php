@@ -60,7 +60,7 @@ class DoctrineAdapter extends CacheProvider
      */
     protected function doFlush()
     {
-        return $this->cache->clear();
+        throw new \RuntimeException('Not supported');
     }
 
     /**
