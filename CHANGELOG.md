@@ -6,11 +6,12 @@ For a complete list of releases, see the [releases page][0].
 
 [0]: https://github.com/treehouselabs/cache/releases
 
-## v2.0.0 (upcoming)
+## v2.0.0
 
 ### Breaking changes:
 
 * Removed deprecated GuzzleAdapter
+* Added FileDriver
 
 ## v1.3.0
 
