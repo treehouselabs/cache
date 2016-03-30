@@ -10,7 +10,6 @@ For a complete list of releases, see the [releases page][0].
 
 ### Breaking changes:
 
-* Now requiring PHP 5.6
 * Removed deprecated GuzzleAdapter
 
 ### Changes:
