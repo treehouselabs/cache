@@ -26,9 +26,7 @@ class DoctrineAdapter extends CacheProvider
      */
     protected function doFetch($id)
     {
-        $result = $this->cache->get($id);
-
-        return null === $result ? false : $result;
+        return $this->cache->get($id);
     }
 
     /**
@@ -42,7 +40,7 @@ class DoctrineAdapter extends CacheProvider
     /**
      * @inheritdoc
      */
-    protected function doSave($id, $data, $lifeTime = false)
+    protected function doSave($id, $data, $lifeTime = 0)
     {
         return $this->cache->set($id, $data, $lifeTime);
     }
@@ -64,7 +62,7 @@ class DoctrineAdapter extends CacheProvider
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function doGetStats()
     {

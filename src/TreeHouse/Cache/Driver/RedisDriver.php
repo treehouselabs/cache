@@ -52,7 +52,7 @@ class RedisDriver implements DriverInterface
      */
     public function remove($key)
     {
-        return $this->redis->del($key) > 0;
+        return $this->redis->del($key) >= 0;
     }
 
     /**
@@ -68,7 +68,7 @@ class RedisDriver implements DriverInterface
      */
     public function addToList($list, $value)
     {
-        return $this->redis->sadd($list, $value) > 0;
+        return $this->redis->sadd($list, $value) >= 0;
     }
 
     /**
@@ -84,6 +84,6 @@ class RedisDriver implements DriverInterface
      */
     public function removeFromList($list, $value)
     {
-        return $this->redis->srem($list, $value) > 0;
+        return $this->redis->srem($list, $value) >= 0;
     }
 }
