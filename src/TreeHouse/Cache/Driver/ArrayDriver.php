@@ -15,7 +15,6 @@ class ArrayDriver implements DriverInterface
     public function has($key)
     {
         return isset($this->storage[$key]) || array_key_exists($key, $this->storage);
-
     }
 
     /**

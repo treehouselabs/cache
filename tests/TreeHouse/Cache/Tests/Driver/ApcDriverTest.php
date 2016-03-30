@@ -7,12 +7,16 @@ use TreeHouse\Cache\Driver\ApcDriver;
 class ApcDriverTest extends DriverTest
 {
     /**
-     * @requires extension redis
+     * @requires extension apc
      */
     protected function setUp()
     {
-        if (!extension_loaded('apcu')) {
-            $this->markTestSkipped('apcu extension not installed');
+        if (!extension_loaded('apc')) {
+            $this->markTestSkipped('apc extension not installed');
+        }
+
+        if ((bool) ini_get('apc.enable_cli') === false) {
+            $this->markTestSkipped('apc extension not enabled for CLI');
         }
 
         apc_clear_cache('user');

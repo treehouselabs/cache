@@ -14,11 +14,14 @@
     "php": ">=5.5"
   },
   "require-dev": {
-    "phpunit/phpunit": "~4.0",
-    "doctrine/cache": "~1.0",
-    "guzzle/guzzle": "~3.7",
-    "predis/predis": "~0.8",
-    "scrutinizer/ocular": "~1.1"
+    "phpunit/phpunit": "^4.5",
+    "doctrine/cache": "^1.1",
+    "predis/predis": "^1.0"
+  },
+  "suggest": {
+    "ext-apcu": "When you want to use the APCu driver",
+    "ext-memcached": "When you want to use the Memcached driver",
+    "ext-redis": "When you want to use the Redis driver"
   },
   "autoload": {
     "psr-4": {
