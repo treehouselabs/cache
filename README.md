@@ -12,7 +12,7 @@ Library for quick and easy caching. Supports multiple drivers.
 ## Installation
 
 ```sh
-composer require treehouselabs/cache:~1.0
+composer require treehouselabs/cache:^2.0
 ```
 
 ## Usage
