@@ -14,8 +14,10 @@ class FileDriver implements DriverInterface
      */
     public function __construct($cacheDir)
     {
-        if (!is_dir($cacheDir) || !is_readable($cacheDir)) {
-            throw new \LogicException(sprintf('Cache dir does not exist or is not readable: "%s"', $cacheDir));
+        $this->ensureDirectory($cacheDir);
+
+        if (!is_writable($cacheDir)) {
+            throw new \LogicException(sprintf('Cache dir is not writeable: "%s"', $cacheDir));
         }
 
         $this->cacheDir = $cacheDir;
@@ -26,7 +28,7 @@ class FileDriver implements DriverInterface
      */
     public function has($key)
     {
-        $file = $this->getCacheFile($key);
+        $file = $this->getCacheFilePath($key);
 
         return file_exists($file);
     }
@@ -36,17 +38,13 @@ class FileDriver implements DriverInterface
      */
     public function get($key)
     {
-        $file = $this->getCacheFile($key);
+        $file = $this->getCacheFilePath($key);
 
         if (!file_exists($file)) {
             return false;
         }
 
-        if (!is_readable($file)) {
-            throw new \RuntimeException(sprintf('Cache file is unreadable: "%s"', $file));
-        }
-
-        if (false === $contents = file_get_contents($file)) {
+        if (false === $contents = @file_get_contents($file)) {
             throw new \RuntimeException(sprintf('Could not read from cache file: "%s"', $file));
         }
 
@@ -58,13 +56,24 @@ class FileDriver implements DriverInterface
      */
     public function set($key, $value, $ttl = 0)
     {
-        $file = $this->getCacheFile($key);
+        $file = $this->getCacheFilePath($key);
 
-        if (false === file_put_contents($file, $value)) {
+        $this->ensureDirectory(pathinfo($file, PATHINFO_DIRNAME));
+
+        // write to tmp file first
+        $tmpFile = tempnam($file, 'swap');
+        chmod($tmpFile, 0664);
+
+        if (false === file_put_contents($tmpFile, $value)) {
             throw new \RuntimeException(sprintf('Could not write to cache file: "%s"', $file));
         }
 
-        return true;
+        // now move the tmp file to ensure atomic writes
+        if (false === $result = rename($tmpFile, $file)) {
+            unlink($tmpFile);
+        }
+
+        return $result;
     }
 
     /**
@@ -72,13 +81,9 @@ class FileDriver implements DriverInterface
      */
     public function remove($key)
     {
-        $file = $this->getCacheFile($key);
+        $file = $this->getCacheFilePath($key);
 
-        if (file_exists($file)) {
-            return unlink($file);
-        }
-
-        return true;
+        return @unlink($file) || !file_exists($file);
     }
 
     /**
@@ -86,11 +91,20 @@ class FileDriver implements DriverInterface
      */
     public function clear()
     {
-        $iterator = new \FilesystemIterator($this->cacheDir);
+        $iterator = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($this->cacheDir, \FilesystemIterator::SKIP_DOTS),
+            \RecursiveIteratorIterator::CHILD_FIRST
+        );
 
         foreach ($iterator as $file) {
-            if (true !== unlink($file)) {
-                throw new \RuntimeException(sprintf('Could not remove file from cache: "%s"', $file));
+            if ($file->isDir()) {
+                if (true !== rmdir($file)) {
+                    throw new \RuntimeException(sprintf('Could not remove cache directory: "%s"', $file));
+                }
+            } else {
+                if (true !== unlink($file)) {
+                    throw new \RuntimeException(sprintf('Could not remove file from cache: "%s"', $file));
+                }
             }
         }
 
@@ -150,8 +164,31 @@ class FileDriver implements DriverInterface
      *
      * @return string
      */
-    private function getCacheFile($key)
+    private function getCacheFilePath($key)
     {
-        return $this->cacheDir . '/' . md5($key);
+        $hash = hash('sha256', $key);
+        $subdir = substr($hash, 0, 2);
+        $filename = substr($hash, 2);
+
+        return $this->cacheDir
+            . DIRECTORY_SEPARATOR
+            . $subdir
+            . DIRECTORY_SEPARATOR
+            . $filename
+        ;
+    }
+
+    /**
+     * @param string $directory
+     */
+    private function ensureDirectory($directory)
+    {
+        if (is_dir($directory)) {
+            return;
+        }
+
+        if (false === @mkdir($directory, 0775, true)) {
+            throw new \RuntimeException(sprintf('Could not create directory "%s"', $file));
+        }
     }
 }
