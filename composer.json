@@ -1,7 +1,7 @@
 {
   "name": "treehouselabs/cache",
   "type": "library",
-  "description": "Library for quick and easy caching. Supports multiple drivers.",
+  "description": "Library for quick and easy caching. Supports multiple drivers. [DEPRECATED]",
   "keywords": ["cache"],
   "license": "MIT",
   "authors": [

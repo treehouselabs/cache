@@ -1,3 +1,5 @@
+> This package is DEPRECATED use a PSR-6 solution like https://github.com/php-cache/cache
+
 Cache
 =====
 
