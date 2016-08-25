@@ -188,7 +188,7 @@ class FileDriver implements DriverInterface
         }
 
         if (false === @mkdir($directory, 0775, true)) {
-            throw new \RuntimeException(sprintf('Could not create directory "%s"', $file));
+            throw new \RuntimeException(sprintf('Could not create directory "%s"', $directory));
         }
     }
 }
