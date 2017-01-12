@@ -33,5 +33,8 @@
       "TreeHouse\\Cache\\Tests\\": "tests/TreeHouse/Cache/Tests/",
       "Doctrine\\Tests\\": "vendor/doctrine/cache/tests/Doctrine/Tests/"
     }
+  },
+  "scripts": {
+    "test": "phpunit"
   }
 }
