@@ -57,11 +57,12 @@ class FileDriver implements DriverInterface
     public function set($key, $value, $ttl = 0)
     {
         $file = $this->getCacheFilePath($key);
+        $dir = pathinfo($file, PATHINFO_DIRNAME);
 
-        $this->ensureDirectory(pathinfo($file, PATHINFO_DIRNAME));
+        $this->ensureDirectory($dir);
 
         // write to tmp file first
-        $tmpFile = tempnam($file, 'swap');
+        $tmpFile = tempnam($dir, 'swap');
         chmod($tmpFile, 0664);
 
         if (false === file_put_contents($tmpFile, $value)) {
